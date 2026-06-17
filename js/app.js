@@ -1,4 +1,8 @@
 const STEPS_BASE = "steps/";
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+const COLOR_DEFAULT = "#e94560";
+const COLOR_QUICK = "#7c3aed";
+
 const dateFormatter = new Intl.DateTimeFormat("fr-FR", {
   day: "numeric",
   month: "long",
@@ -32,7 +36,64 @@ async function loadSteps() {
     })
   );
 
-  return loaded.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const chronological = loaded.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  for (let i = 0; i < chronological.length; i++) {
+    const step = chronological[i];
+    step.dayNumber = i + 1;
+
+    if (i > 0) {
+      const prevDate = new Date(chronological[i - 1].date + "T12:00:00");
+      const currDate = new Date(step.date + "T12:00:00");
+      step.isQuickStep = currDate - prevDate < MS_PER_DAY;
+    } else {
+      step.isQuickStep = false;
+    }
+
+    if (step.lat != null && step.lng != null) {
+      step.resolvedPlace = step.place;
+    } else if (step.place) {
+      const geo = await geocodePlace(step.place);
+      step.lat = geo.lat;
+      step.lng = geo.lng;
+      step.resolvedPlace = geo.label;
+    } else {
+      throw new Error(`Étape "${step.id}" : champ "place" requis`);
+    }
+
+    step.displayTitle = `Jour ${step.dayNumber} — ${step.resolvedPlace || step.place}`;
+  }
+
+  return chronological;
+}
+
+async function geocodePlace(place) {
+  const url =
+    "https://geocoding-api.open-meteo.com/v1/search?" +
+    new URLSearchParams({ name: place, count: "1", language: "fr", format: "json" });
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Géocodage échoué pour « ${place} »`);
+
+  const data = await res.json();
+  if (!data.results?.length) {
+    throw new Error(`Lieu introuvable : « ${place} » (précisez ex. « Paris, France »)`);
+  }
+
+  const r = data.results[0];
+  const parts = [r.name];
+  if (r.admin1 && r.admin1 !== r.name) parts.push(r.admin1);
+  if (r.country) parts.push(r.country);
+
+  return { lat: r.latitude, lng: r.longitude, label: parts.join(", ") };
+}
+
+function getDisplaySteps() {
+  return [...steps].sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function getLatestStep() {
+  return steps[steps.length - 1];
 }
 
 function formatDate(isoDate) {
@@ -76,7 +137,7 @@ function showStep(stepId, { panMap = true } = {}) {
   panelDetail.classList.remove("hidden");
 
   detailDate.textContent = formatDate(step.date);
-  detailTitle.textContent = step.title;
+  detailTitle.textContent = step.displayTitle;
   detailText.innerHTML = renderParagraphs(step.text);
   detailPhotos.innerHTML = renderPhotos(step.photos);
 
@@ -85,11 +146,13 @@ function showStep(stepId, { panMap = true } = {}) {
   });
 
   Object.entries(markers).forEach(([id, marker]) => {
-    marker.getElement()?.classList.toggle("marker-active", id === stepId);
+    const el = marker.getElement();
+    if (!el) return;
+    el.classList.toggle("marker-active", id === stepId);
   });
 
   if (panMap) {
-    map.setView([step.lat, step.lng], Math.max(map.getZoom(), 5), { animate: true });
+    map.setView([step.lat, step.lng], Math.max(map.getZoom(), 6), { animate: true });
   }
 
   history.replaceState(null, "", `#${stepId}`);
@@ -115,13 +178,13 @@ function showList() {
 }
 
 function renderStepList() {
-  stepList.innerHTML = steps
+  stepList.innerHTML = getDisplaySteps()
     .map(
       (step) => `
         <li>
           <button class="step-list-item" type="button" data-id="${escapeHtml(step.id)}">
             <span class="step-list-date">${formatDate(step.date)}</span>
-            <span class="step-list-title">${escapeHtml(step.title)}</span>
+            <span class="step-list-title">${escapeHtml(step.displayTitle)}</span>
           </button>
         </li>
       `
@@ -134,7 +197,11 @@ function renderStepList() {
 }
 
 function initMap() {
-  map = L.map("map", { zoomControl: true }).setView([30, 10], 2);
+  const latest = getLatestStep();
+  const initialCenter = latest ? [latest.lat, latest.lng] : [30, 10];
+  const initialZoom = latest ? 6 : 2;
+
+  map = L.map("map", { zoomControl: true }).setView(initialCenter, initialZoom);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -143,24 +210,27 @@ function initMap() {
 
   const latLngs = [];
 
-  steps.forEach((step, index) => {
+  steps.forEach((step) => {
     latLngs.push([step.lat, step.lng]);
+
+    const fillColor = step.isQuickStep ? COLOR_QUICK : COLOR_DEFAULT;
 
     const marker = L.circleMarker([step.lat, step.lng], {
       radius: 8,
-      fillColor: "#e94560",
+      fillColor,
       color: "#fff",
       weight: 2,
       fillOpacity: 0.9,
     }).addTo(map);
 
-    marker.bindTooltip(step.title, { direction: "top", offset: [0, -8] });
+    marker.bindTooltip(step.displayTitle, { direction: "top", offset: [0, -8] });
     marker.on("click", () => showStep(step.id, { panMap: false }));
 
     const el = marker.getElement();
     if (el) {
       el.classList.add("step-marker");
-      el.dataset.index = index + 1;
+      if (step.isQuickStep) el.classList.add("marker-quick");
+      el.dataset.color = step.isQuickStep ? "quick" : "default";
     }
 
     markers[step.id] = marker;
@@ -168,15 +238,11 @@ function initMap() {
 
   if (latLngs.length > 1) {
     routeLine = L.polyline(latLngs, {
-      color: "#e94560",
+      color: COLOR_DEFAULT,
       weight: 2,
       opacity: 0.5,
       dashArray: "6 8",
     }).addTo(map);
-  }
-
-  if (latLngs.length > 0) {
-    map.fitBounds(L.latLngBounds(latLngs), { padding: [40, 40], maxZoom: 6 });
   }
 }
 
@@ -184,6 +250,12 @@ function handleInitialHash() {
   const hash = location.hash.slice(1);
   if (hash && steps.some((s) => s.id === hash)) {
     showStep(hash);
+    return;
+  }
+
+  const latest = getLatestStep();
+  if (latest) {
+    map.setView([latest.lat, latest.lng], 6);
   }
 }
 

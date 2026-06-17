@@ -12,6 +12,7 @@
   --text: #1a1a2e;
   --muted: #6b7280;
   --accent: #e94560;
+  --accent-quick: #7c3aed;
   --accent-dark: #0f3460;
   --border: #e5e7eb;
   --header-h: 56px;
@@ -199,8 +200,12 @@ body {
   cursor: pointer;
 }
 
-.step-marker.marker-active {
+.step-marker.marker-active[data-color="default"] {
   filter: drop-shadow(0 0 6px var(--accent));
+}
+
+.step-marker.marker-active[data-color="quick"] {
+  filter: drop-shadow(0 0 6px var(--accent-quick));
 }
 
 @media (max-width: 767px) {

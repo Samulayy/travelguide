@@ -1,9 +1,7 @@
 {
   "id": "nom-unique",
-  "title": "Nom du lieu",
+  "place": "Paris",
   "date": "2026-06-17",
-  "lat": 0,
-  "lng": 0,
   "text": "Votre récit ici.\n\nSéparez les paragraphes par une ligne vide.",
   "photos": [
     {
