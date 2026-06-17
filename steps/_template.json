@@ -1,0 +1,14 @@
+{
+  "id": "nom-unique",
+  "title": "Nom du lieu",
+  "date": "2026-06-17",
+  "lat": 0,
+  "lng": 0,
+  "text": "Votre récit ici.\n\nSéparez les paragraphes par une ligne vide.",
+  "photos": [
+    {
+      "src": "photos/nom-unique/photo1.jpg",
+      "caption": "Légende optionnelle"
+    }
+  ]
+}

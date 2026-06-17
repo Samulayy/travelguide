@@ -4,55 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Guide</title>
-  <link rel="stylesheet" href="styles.css">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  >
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header class="hero">
-    <nav class="nav">
-      <span class="logo">Travel Guide</span>
-      <a href="#destinations">Destinations</a>
-      <a href="#about">À propos</a>
-    </nav>
-    <div class="hero-content">
-      <p class="eyebrow">Votre prochaine aventure commence ici</p>
-      <h1>Explorez le monde, une destination à la fois</h1>
-      <p class="subtitle">
-        Guides de voyage, conseils pratiques et inspirations pour préparer vos prochains séjours.
-      </p>
-      <a class="btn" href="#destinations">Découvrir les destinations</a>
-    </div>
+  <header class="header">
+    <h1 class="logo">Travel Guide</h1>
+    <p class="tagline">Carnet de voyage</p>
   </header>
 
-  <main>
-    <section id="destinations" class="section">
-      <h2>Destinations à la une</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Paris</h3>
-          <p>Art, gastronomie et balades le long de la Seine.</p>
-        </article>
-        <article class="card">
-          <h3>Tokyo</h3>
-          <p>Tradition et modernité au cœur du Japon.</p>
-        </article>
-        <article class="card">
-          <h3>Lisbonne</h3>
-          <p>Lumière dorée, azulejos et vue sur l'Atlantique.</p>
-        </article>
+  <div class="layout">
+    <section class="map-section" aria-label="Carte du voyage">
+      <div id="map"></div>
+    </section>
+
+    <aside class="panel" id="panel" aria-label="Détail de l'étape">
+      <div class="panel-placeholder" id="panel-placeholder">
+        <p class="panel-hint">Cliquez sur un point de la carte ou choisissez une étape ci-dessous.</p>
+        <ol class="step-list" id="step-list"></ol>
       </div>
-    </section>
+      <article class="panel-detail hidden" id="panel-detail">
+        <button class="panel-back" id="panel-back" type="button" aria-label="Retour à la liste">
+          ← Toutes les étapes
+        </button>
+        <header class="detail-header">
+          <time class="detail-date" id="detail-date"></time>
+          <h2 class="detail-title" id="detail-title"></h2>
+        </header>
+        <div class="detail-text" id="detail-text"></div>
+        <div class="detail-photos" id="detail-photos"></div>
+      </article>
+    </aside>
+  </div>
 
-    <section id="about" class="section about">
-      <h2>À propos</h2>
-      <p>
-        Travel Guide est un projet personnel pour partager des idées de voyage,
-        des itinéraires et des ressources utiles. Cette page est hébergée avec GitHub Pages.
-      </p>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Travel Guide — Propulsé par GitHub Pages</p>
-  </footer>
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
