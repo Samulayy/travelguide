@@ -1,14 +1,8 @@
+
 {
-  "id": "Auckland",
-  "title": "Arrivée à Auckland",
-  "date": "2026-06-18",
-  "lat": -36.8484597,
-  "lng": 174.7633315,
+  "id": "Arrivée à Auckland",
+  "place": "Auckland",
+  "date": "2026-06-17",
   "text": "Notre arrivée au pays du seigneur des anneaux\n\nOn y croit à peine !",
-  "photos": [
-    {
-      "src": "photos/nom-unique/photo1.jpg",
-      "caption": "Légende optionnelle"
-    }
-  ]
+  "photos": []
 }
