@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Roxy Raph — Travel Guide</title>
+  <base href="/travelguide/">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -15,7 +16,7 @@
 
     <ul class="nav">
       <li>
-        <a class="nav-item active" href="#" aria-current="page">
+        <a class="nav-item active" href="./" aria-current="page">
           <span class="nav-icon">🗺</span>
           <span class="nav-label">Carte</span>
         </a>
@@ -36,20 +37,13 @@
   </nav>
 
   <main class="content">
-    <div class="embed-viewport" id="embed-viewport">
-      <div class="embed-scale" id="embed-scale">
-        <iframe
-          title="Roxy Raph sur Polarsteps"
-          src="https://www.polarsteps.com/Samulay/26507681-roxy-raph/embed"
-          width="640"
-          height="480"
-          loading="lazy"
-          allowfullscreen
-        ></iframe>
-      </div>
-    </div>
+    <iframe
+      class="embed"
+      title="Roxy Raph sur Polarsteps"
+      src="https://www.polarsteps.com/Samulay/26507681-roxy-raph/embed"
+      loading="lazy"
+      allowfullscreen
+    ></iframe>
   </main>
-
-  <script src="js/embed.js"></script>
 </body>
 </html>
