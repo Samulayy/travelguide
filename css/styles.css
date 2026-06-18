@@ -220,7 +220,7 @@ body {
 }
 
 .defis-btn-photo {
-  --photo-size: min(36vw, calc(100vh - var(--header-h) - 7rem), 340px);
+  --photo-size: clamp(320px, 38vmin, 520px);
   width: var(--photo-size);
   height: var(--photo-size);
   display: flex;
@@ -240,7 +240,6 @@ body {
   height: auto;
   object-fit: contain;
   display: block;
-  filter: url(#knockout-white) contrast(1.05);
   transition: transform 0.28s ease;
 }
 
@@ -306,12 +305,27 @@ body {
   }
 
   .defis-grid {
-    flex-direction: column;
-    gap: 1.25rem;
-    padding: 1rem;
+    flex-direction: row;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .defis-btn {
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
   }
 
   .defis-btn-photo {
-    --photo-size: min(72vw, calc(100vh - var(--header-h) - 9rem), 280px);
+    --photo-size: clamp(100px, 28vw, 150px);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-width: var(--photo-size);
+    max-height: var(--photo-size);
+  }
+
+  .defis-btn-label {
+    font-size: 0.9rem;
   }
 }
