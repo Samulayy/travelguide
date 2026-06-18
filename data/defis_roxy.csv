@@ -1,0 +1,8 @@
+id,nom,categorie,description,dependance_id,points,valide,icone,difficulte
+1,Courir 5 km,Sportif,Courir 5 km sans s'arrêter.,0,10,true,run,1
+2,10 km,Sportif,Courir 10 km.,1,25,false,run,2
+3,Semi-marathon,Sportif,Finir un semi-marathon.,2,50,false,run,3
+4,Selfie Auckland,Culture,Photo devant un monument emblématique.,0,5,true,camera,1
+5,Visite musée,Culture,Visiter un musée local.,4,15,false,camera,2
+6,Plat typique,Culture,Goûter un plat traditionnel.,4,15,false,cuisine,2
+7,Spot secret,Culture,Découvrir un lieu caché recommandé par un local.,5,30,false,exploration,3

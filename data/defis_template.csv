@@ -1,0 +1,5 @@
+id,nom,categorie,description,dependance_id,points,valide,icone,difficulte
+1,Exemple facile,Exploration,Description du défi à accomplir.,0,10,false,exploration,1
+2,Exemple moyen,Exploration,Défi de difficulté 2.,1,25,false,exploration,2
+3,Exemple difficile,Exploration,Défi de difficulté 3.,2,50,false,exploration,3
+4,Défi indépendant,Culture,Aucun prérequis.,0,5,false,culture,1
