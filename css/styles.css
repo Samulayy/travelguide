@@ -161,6 +161,10 @@ body {
 
 .content.page {
   overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .page-inner {
@@ -194,13 +198,14 @@ body {
 }
 
 .defis-grid {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2.5rem;
-  min-height: 100%;
-  padding: 2rem;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(1rem, 3vw, 2rem);
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .defis-btn {
@@ -210,37 +215,58 @@ body {
   gap: 0.85rem;
   text-decoration: none;
   color: var(--text);
-  max-width: min(320px, 42vw);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+  flex: 0 1 auto;
 }
 
-.defis-btn img {
-  width: 100%;
-  height: auto;
+.defis-btn-photo {
+  --photo-size: min(36vw, calc(100vh - var(--header-h) - 7rem), 340px);
+  width: var(--photo-size);
+  height: var(--photo-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
   border-radius: 20px;
-  border: 2px solid var(--border);
+  border: 2px solid transparent;
+  overflow: visible;
+  transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.defis-btn-photo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   display: block;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  filter: url(#knockout-white) contrast(1.05);
+  transition: transform 0.28s ease;
 }
 
 .defis-btn-label {
-  font-size: 1.15rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-weight: 700;
   letter-spacing: 0.03em;
+  transition: color 0.28s ease;
 }
 
-.defis-btn:hover {
-  transform: translateY(-6px);
-}
-
-.defis-btn:hover img {
-  transform: scale(1.04);
+.defis-btn:hover .defis-btn-photo {
+  transform: translateY(-10px) scale(1.03);
   border-color: var(--accent);
-  box-shadow: 0 16px 40px rgba(107, 140, 174, 0.35);
+  box-shadow: 0 20px 48px rgba(107, 140, 174, 0.45);
 }
 
-.defis-btn:active img {
-  transform: scale(0.98);
+.defis-btn:hover .defis-btn-photo img {
+  transform: scale(1.06);
+}
+
+.defis-btn:hover .defis-btn-label {
+  color: var(--accent);
+}
+
+.defis-btn:active .defis-btn-photo {
+  transform: translateY(-4px) scale(1.01);
 }
 
 @media (max-width: 560px) {
@@ -280,11 +306,12 @@ body {
   }
 
   .defis-grid {
-    gap: 1.5rem;
-    padding: 1.5rem 1rem;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1rem;
   }
 
-  .defis-btn {
-    max-width: min(280px, 80vw);
+  .defis-btn-photo {
+    --photo-size: min(72vw, calc(100vh - var(--header-h) - 9rem), 280px);
   }
 }
