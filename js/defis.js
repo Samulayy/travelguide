@@ -10,6 +10,7 @@ const ICONS = {
 };
 
 function parseCsv(text) {
+  const cleaned = text.replace(/^\uFEFF/, "");
   const rows = [];
   let row = [];
   let cell = "";
@@ -152,13 +153,20 @@ function renderTrees(defis) {
     .join("");
 }
 
+function assetPath(relative) {
+  if (location.protocol === "file:") return relative;
+  const base = location.pathname.includes("/travelguide/") ? "/travelguide/" : "./";
+  return base + relative.replace(/^\.\//, "");
+}
+
 async function loadDefisTrees(container) {
-  const csvPath = container.dataset.defisCsv;
-  if (!csvPath) {
+  const csvRelative = container.dataset.defisCsv;
+  if (!csvRelative) {
     container.innerHTML = `<p class="trees-error">Fichier CSV non configuré.</p>`;
     return;
   }
 
+  const csvPath = assetPath(csvRelative);
   container.innerHTML = `<p class="trees-loading">Chargement des défis…</p>`;
 
   try {
