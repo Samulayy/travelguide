@@ -8,7 +8,15 @@
 </head>
 <body>
   <header class="header">
-    <a class="brand" href="/travelguide/">Roxy Raph</a>
+    <a class="brand" href="/travelguide/">
+      <img
+        class="brand-logo"
+        src="/travelguide/assets/logo.png"
+        alt="Roxy Raph"
+        onerror="this.closest('.brand').classList.add('no-logo')"
+      >
+      <span class="brand-text">Roxy Raph</span>
+    </a>
 
     <nav class="nav" aria-label="Navigation principale">
       <a class="nav-item active" href="/travelguide/" aria-current="page">
@@ -42,12 +50,14 @@
   </header>
 
   <main class="content">
-    <iframe
-      class="embed"
-      title="Roxy Raph sur Polarsteps"
-      src="https://www.polarsteps.com/Samulay/26507681-roxy-raph/embed"
-      allowfullscreen
-    ></iframe>
+    <div class="embed-wrapper">
+      <iframe
+        class="embed"
+        title="Roxy Raph sur Polarsteps"
+        src="https://www.polarsteps.com/Samulay/26507681-roxy-raph/embed"
+        allowfullscreen
+      ></iframe>
+    </div>
   </main>
 </body>
 </html>
