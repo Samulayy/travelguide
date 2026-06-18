@@ -218,8 +218,8 @@ body {
 }
 
 .defis-btn-photo {
-  width: 32vmin;
-  height: 32vmin;
+  width: 60vmin;
+  height: 60vmin;
   display: flex;
   align-items: center;
   justify-content: center;
