@@ -74,10 +74,12 @@ body {
 }
 
 .brand-text {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .brand:hover .brand-text {
@@ -179,6 +181,68 @@ body {
   line-height: 1.6;
 }
 
+.page-back {
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.page-back:hover {
+  text-decoration: underline;
+}
+
+.defis-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  min-height: 100%;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
+
+.defis-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--text);
+  max-width: min(320px, 42vw);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.defis-btn img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  border: 2px solid var(--border);
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.defis-btn-label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.defis-btn:hover {
+  transform: translateY(-6px);
+}
+
+.defis-btn:hover img {
+  transform: scale(1.04);
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px rgba(107, 140, 174, 0.35);
+}
+
+.defis-btn:active img {
+  transform: scale(0.98);
+}
+
 @media (max-width: 560px) {
   :root {
     --header-h: 52px;
@@ -195,7 +259,11 @@ body {
   }
 
   .brand-text {
-    font-size: 0.95rem;
+    font-size: 0.72rem;
+    max-width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .header-nav {
@@ -209,5 +277,14 @@ body {
   .nav-item {
     padding: 0.4rem 0.6rem;
     font-size: 0.85rem;
+  }
+
+  .defis-grid {
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .defis-btn {
+    max-width: min(280px, 80vw);
   }
 }

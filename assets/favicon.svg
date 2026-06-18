@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Nouvelle-Zélande">
+  <rect width="32" height="32" rx="6" fill="#161618"/>
+  <g fill="#6b8cae">
+    <!-- Île du Sud -->
+    <path d="M9.5 3.5 L11.2 28.5 L14.8 27.8 L13.1 4.2 Z"/>
+    <!-- Île du Nord -->
+    <path d="M17.2 9.5 C20.5 8.8 24.2 9.8 26.5 13.2 C27.8 15.8 27.2 18.5 25 20.2 C23.2 21.5 20.8 21.8 18.5 20.5 L17.8 17.2 C19.5 16.5 20.2 14.5 19.2 12.8 C18.5 11.5 17.8 10.5 17.2 9.5 Z"/>
+  </g>
+</svg>
