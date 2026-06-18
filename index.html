@@ -9,12 +9,14 @@
 <body>
   <header class="header">
     <a class="brand" href="/travelguide/">
-      <img
-        class="brand-logo"
-        src="/travelguide/assets/logo.jpg"
-        alt=""
-        onerror="this.style.display='none'"
-      >
+      <span class="brand-logo-wrap">
+        <img
+          class="brand-logo"
+          src="/travelguide/assets/logo.jpg"
+          alt=""
+          onerror="this.closest('.brand-logo-wrap').style.display='none'"
+        >
+      </span>
       <span class="brand-text">Roxy Raph</span>
     </a>
 

@@ -53,12 +53,23 @@ body {
   flex-shrink: 0;
 }
 
+.brand-logo-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--header-h) - 16px);
+  width: calc(var(--header-h) - 16px);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 .brand-logo {
-  height: 42px;
+  max-width: 100%;
+  max-height: 100%;
   width: auto;
-  max-width: 130px;
+  height: auto;
   object-fit: contain;
-  border-radius: 6px;
   display: block;
 }
 
@@ -177,9 +188,10 @@ body {
     padding: 0 0.85rem;
   }
 
-  .brand-logo {
-    height: 34px;
-    max-width: 90px;
+  .brand-logo-wrap {
+    height: calc(var(--header-h) - 12px);
+    width: calc(var(--header-h) - 12px);
+    border-radius: 10px;
   }
 
   .brand-text {
