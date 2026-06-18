@@ -308,22 +308,26 @@ body {
 
   .defis-grid {
     flex-direction: row;
-    gap: 3vw;
-    padding: 2vw;
+    align-items: center;
+    gap: 4vw;
+    padding: 3vh 4vw;
   }
 
   .defis-btn {
-    gap: 0.5rem;
-    flex: 1;
+    gap: 0.75rem;
+    flex: 1 1 0;
     min-width: 0;
+    max-width: 48%;
   }
 
   .defis-btn-photo {
-    width: 30vw;
-    height: 30vw;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-height: 38vh;
   }
 
   .defis-btn-label {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
   }
 }
