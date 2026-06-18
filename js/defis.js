@@ -153,8 +153,13 @@ function renderTrees(defis) {
 }
 
 async function loadDefisTrees(container) {
-  const csvPath = container.dataset.csv;
-  if (!csvPath) return;
+  const csvPath = container.dataset.defisCsv;
+  if (!csvPath) {
+    container.innerHTML = `<p class="trees-error">Fichier CSV non configuré.</p>`;
+    return;
+  }
+
+  container.innerHTML = `<p class="trees-loading">Chargement des défis…</p>`;
 
   try {
     const response = await fetch(csvPath);
@@ -173,4 +178,6 @@ async function loadDefisTrees(container) {
   }
 }
 
-document.querySelectorAll("[data-defis-csv]").forEach(loadDefisTrees);
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-defis-csv]").forEach(loadDefisTrees);
+});
